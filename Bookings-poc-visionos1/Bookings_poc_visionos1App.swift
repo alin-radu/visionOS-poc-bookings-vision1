@@ -1,16 +1,12 @@
-//
-//  Bookings_poc_visionos1App.swift
-//  Bookings-poc-visionos1
-//
-//  Created by Alin RADU on 16.02.2024.
-//
-
+import MapKit
 import SwiftUI
 
 @main
 struct Bookings_poc_visionos1App: App {
+
+
     var body: some Scene {
-        WindowGroup {
+        WindowGroup(id: ViewType.mainWindow.rawValue) {
             ContentView()
         }
     }
