@@ -35,13 +35,12 @@ struct AirportView: View {
                 }
             }
             .containerRelativeFrame(.horizontal) { size, _ in
-                size * 0.34
+                size * 0.35
             }
 
-            AiportMap(airport: airport, position: .camera(getCameraView(airport)))
-                .clipShape(.rect(cornerRadius: 30))
+            AiportMapView(airport: airport, position: .camera(getCameraView(airport)))
         }
-        .padding(30)
+        .padding([.leading, .bottom, .trailing], 25)
     }
 
     func getCameraView(_ airport: Airport) -> MapCamera {
