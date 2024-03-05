@@ -1,7 +1,7 @@
 import MapKit
 import SwiftUI
 
-struct AirportView: View {
+struct AirportDetailsView: View {
     let airport: Airport
 
     init(airport: Airport) {
@@ -54,7 +54,7 @@ struct AirportView: View {
 #Preview(windowStyle: .automatic) {
     let airports: [Airport] = Bundle.main.decode("airports-SML.json")
 
-    AirportView(airport: airports[0])
+    AirportDetailsView(airport: airports[0])
 }
 
 struct DetailItem: View {

@@ -3,7 +3,7 @@ import RealityKit
 import RealityKitContent
 import SwiftUI
 
-struct ContentView: View {
+struct AirportsContentView: View {
     let airports: Airports = Airports()
 
     @State var searchTerm: String = ""
@@ -66,7 +66,7 @@ struct ContentView: View {
                 ToolBarItems(continentSelection: $continentSelection, filteredAirports: filteredAirports)
             }
             .navigationDestination(for: Airport.self) { airport in
-                AirportView(airport: airport)
+                AirportDetailsView(airport: airport)
             }
         }
         .onAppear {
@@ -83,7 +83,7 @@ struct ContentView: View {
 }
 
 #Preview(windowStyle: .automatic) {
-    ContentView()
+    AirportsContentView()
 }
 
 // components
