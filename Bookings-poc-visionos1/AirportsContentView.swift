@@ -9,11 +9,9 @@ struct AirportsContentView: View {
     @State var searchTerm: String = ""
     @State var continentSelection: Continent = Continent.all
     @State var selectedAirport: Airport?
-    @State var selectedMapPosition: CLLocationCoordinate2D?
 
     var filteredAirports: [Airport] {
         airports.filter(by: continentSelection)
-
         return airports.search(for: searchTerm)
     }
 
@@ -29,10 +27,7 @@ struct AirportsContentView: View {
                     Divider()
                     LazyVStack(alignment: .leading) {
                         ForEach(filteredAirports) { airport in
-
-                            ListLabel(airport: airport,
-                                      selectedAirport: $selectedAirport,
-                                      selectedMapPosition: $selectedMapPosition)
+                            ListLabel(airport: airport, selectedAirport: $selectedAirport)
                         }
                     }
                     .animation(.default, value: searchTerm)
@@ -46,16 +41,9 @@ struct AirportsContentView: View {
                 // map view
                 HStack {
                     if let selectedAirport {
-                        AiportMapView(airport: selectedAirport, position: .camera(MapCamera(centerCoordinate: selectedMapPosition!,
-                                                                                        distance: 5000,
-                                                                                        heading: 250,
-                                                                                        pitch: 80)))
+                        AiportMapView(airport: selectedAirport)
                     } else {
-                        AiportMapView(airport: airports.displayedAirports[0],
-                                  position: .camera(MapCamera(centerCoordinate: airports.displayedAirports[0].location,
-                                                              distance: 5000,
-                                                              heading: 250,
-                                                              pitch: 80)))
+                        AiportMapView(airport: airports.displayedAirports[0])
                     }
                 }
             }
@@ -70,15 +58,8 @@ struct AirportsContentView: View {
             }
         }
         .onAppear {
-            print("onAppear ---> ")
+            print("---> AirportsContentView | onAppear")
         }
-    }
-
-    func getCameraView(_ airport: Airport) -> MapCamera {
-        MapCamera(centerCoordinate: airport.location,
-                  distance: 3500,
-                  heading: 250,
-                  pitch: 80)
     }
 }
 
@@ -122,11 +103,9 @@ struct ListLabel: View {
     let airport: Airport
 
     @Binding var selectedAirport: Airport?
-    @Binding var selectedMapPosition: CLLocationCoordinate2D?
 
     var body: some View {
         HStack {
-            
             VStack(alignment: .leading) {
                 Text(airport.name)
                     .font(.title2)
@@ -137,7 +116,7 @@ struct ListLabel: View {
             }
 
             Spacer()
-            
+
             NavigationLink(value: airport) {
                 Image(systemName: "info")
                     .imageScale(.medium)
@@ -146,7 +125,6 @@ struct ListLabel: View {
             Button {
                 print(airport.name)
                 selectedAirport = airport
-                selectedMapPosition = airport.location
             } label: {
                 Image(systemName: "map")
                     .imageScale(.medium)

@@ -12,11 +12,23 @@ struct AiportMapView: View {
     let airport: Airport
 
     @State var position: MapCameraPosition
-    @State var satellite = false
+    @State var satellite: Bool
+
+    init(airport: Airport) {
+        print("---> AiportMapView | init | name: \(airport.name)")
+
+        self.airport = airport
+        _position = State(initialValue:
+            MapCameraPosition.camera(MapCamera(centerCoordinate: airport.coordinate,
+                                               distance: 1500,
+                                               heading: 250,
+                                               pitch: 80)))
+        _satellite = State(initialValue: false)
+    }
 
     var body: some View {
         Map(position: $position, interactionModes: [.all]) {
-            Annotation(airport.name, coordinate: airport.location) {
+            Annotation(airport.name, coordinate: airport.coordinate) {
                 Text(airport.name)
                 Image(systemName: "mappin.and.ellipse")
                     .font(.largeTitle)
@@ -41,14 +53,18 @@ struct AiportMapView: View {
             .padding(.vertical, 5)
         }
         .clipShape(.rect(cornerRadius: 30))
+        .onChange(of: airport) {
+            print("---> AiportMapView | onChange")
+            position = .camera(MapCamera(centerCoordinate: airport.coordinate,
+                                         distance: 1500,
+                                         heading: 250,
+                                         pitch: 80))
+        }
     }
 }
 
 #Preview(windowStyle: .automatic) {
     let airport = Airports().allAirports[1]
 
-    AiportMapView(airport: airport, position: .camera(MapCamera(centerCoordinate: airport.location,
-                                                                distance: 3500,
-                                                                heading: 250,
-                                                                pitch: 80)))
+    AiportMapView(airport: airport)
 }

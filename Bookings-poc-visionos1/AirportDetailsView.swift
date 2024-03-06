@@ -38,16 +38,9 @@ struct AirportDetailsView: View {
                 size * 0.35
             }
 
-            AiportMapView(airport: airport, position: .camera(getCameraView(airport)))
+            AiportMapView(airport: airport)
         }
         .padding([.leading, .bottom, .trailing], 25)
-    }
-
-    func getCameraView(_ airport: Airport) -> MapCamera {
-        MapCamera(centerCoordinate: airport.location,
-                  distance: 3500,
-                  heading: 250,
-                  pitch: 80)
     }
 }
 
