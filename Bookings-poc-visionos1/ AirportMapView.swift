@@ -13,6 +13,7 @@ struct AiportMapView: View {
 
     @State var position: MapCameraPosition
     @State var satellite: Bool
+    @State var selectedTag: Int?
 
     init(airport: Airport, position: MapCameraPosition) {
         print("---> AiportMapView | init | name: \(airport.name)")
@@ -23,17 +24,31 @@ struct AiportMapView: View {
     }
 
     var body: some View {
-        Map(position: $position, interactionModes: [.all]) {
+        Map(position: $position, interactionModes: [.all], selection: $selectedTag) {
             Annotation(airport.name, coordinate: airport.coordinate) {
-                Text(airport.name)
-                Image(systemName: "mappin.and.ellipse")
-                    .font(.largeTitle)
-                    .imageScale(.large)
-                    .symbolEffect(.pulse)
+                VStack {
+                    Text(airport.name)
+                    Image(systemName: "airplane")
+                        .padding(10)
+                        .imageScale(selectedTag == airport.id ? .large : .small)
+                        .background(
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 5)
+                                    .fill(selectedTag == airport.id ? .green : .clear)
+                                RoundedRectangle(cornerRadius: 5)
+                                    .stroke(.secondary, lineWidth: 3)
+                            }
+                        )
+                }
             }
             .annotationTitles(.hidden)
+            .tag(airport.id)
         }
         .mapStyle(satellite ? .imagery(elevation: .realistic) : .standard(elevation: .realistic))
+        .mapControls({
+            MapCompass()
+            MapScaleView()
+        })
         .overlay(alignment: .bottomTrailing) {
             Button {
                 satellite.toggle()
@@ -52,6 +67,9 @@ struct AiportMapView: View {
         .onChange(of: airport) {
             print("---> AiportMapView | onChange")
             position = .camera(MapCamera.getDefaultMapCameraPosition(coordinate: airport.coordinate))
+        }
+        .onChange(of: selectedTag) {
+            print("test ------------>")
         }
     }
 }

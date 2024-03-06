@@ -10,8 +10,8 @@ import SwiftUI
 extension MapCamera {
     static func getDefaultMapCameraPosition(coordinate: CLLocationCoordinate2D) -> MapCamera {
         return MapCamera(centerCoordinate: coordinate,
-                         distance: 1500,
+                         distance: 1000,
                          heading: 250,
-                         pitch: 80)
+                         pitch: 60)
     }
 }
