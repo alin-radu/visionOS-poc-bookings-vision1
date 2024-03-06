@@ -14,15 +14,11 @@ struct AiportMapView: View {
     @State var position: MapCameraPosition
     @State var satellite: Bool
 
-    init(airport: Airport) {
+    init(airport: Airport, position: MapCameraPosition) {
         print("---> AiportMapView | init | name: \(airport.name)")
 
         self.airport = airport
-        _position = State(initialValue:
-            MapCameraPosition.camera(MapCamera(centerCoordinate: airport.coordinate,
-                                               distance: 1500,
-                                               heading: 250,
-                                               pitch: 80)))
+        _position = State(initialValue: position)
         _satellite = State(initialValue: false)
     }
 
@@ -55,10 +51,7 @@ struct AiportMapView: View {
         .clipShape(.rect(cornerRadius: 30))
         .onChange(of: airport) {
             print("---> AiportMapView | onChange")
-            position = .camera(MapCamera(centerCoordinate: airport.coordinate,
-                                         distance: 1500,
-                                         heading: 250,
-                                         pitch: 80))
+            position = .camera(MapCamera.getDefaultMapCameraPosition(coordinate: airport.coordinate))
         }
     }
 }
@@ -66,5 +59,5 @@ struct AiportMapView: View {
 #Preview(windowStyle: .automatic) {
     let airport = Airports().allAirports[1]
 
-    AiportMapView(airport: airport)
+    AiportMapView(airport: airport, position: .camera(MapCamera.getDefaultMapCameraPosition(coordinate: airport.coordinate)))
 }

@@ -41,9 +41,9 @@ struct AirportsContentView: View {
                 // map view
                 HStack {
                     if let selectedAirport {
-                        AiportMapView(airport: selectedAirport)
+                        AiportMapView(airport: selectedAirport, position: .camera(MapCamera.getDefaultMapCameraPosition(coordinate: selectedAirport.coordinate)))
                     } else {
-                        AiportMapView(airport: airports.displayedAirports[0])
+                        AiportMapView(airport: firstFilteredAirport, position: .camera(MapCamera.getDefaultMapCameraPosition(coordinate: firstFilteredAirport.coordinate)))
                     }
                 }
             }
