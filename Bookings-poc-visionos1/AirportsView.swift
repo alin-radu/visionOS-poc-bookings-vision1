@@ -4,20 +4,7 @@ import RealityKitContent
 import SwiftUI
 
 struct AirportsContentView: View {
-    let airports: Airports = Airports()
-
-    @State var searchTerm: String = ""
-    @State var continentSelection: Continent = Continent.all
-    @State var selectedAirport: Airport?
-
-    var filteredAirports: [Airport] {
-        airports.filter(by: continentSelection)
-        return airports.search(for: searchTerm)
-    }
-
-    var firstFilteredAirport: Airport {
-        return filteredAirports[0]
-    }
+    @State private var viewModel = ViewModel()
 
     var body: some View {
         NavigationStack {
@@ -26,12 +13,12 @@ struct AirportsContentView: View {
                 ScrollView {
                     Divider()
                     LazyVStack(alignment: .leading) {
-                        ForEach(filteredAirports) { airport in
-                            ListLabel(airport: airport, selectedAirport: $selectedAirport)
+                        ForEach(viewModel.filteredAirports) { airport in
+                            ListLabel(airport: airport, selectedAirport: $viewModel.selectedAirport)
                         }
                     }
-                    .animation(.default, value: searchTerm)
-                    .animation(.default, value: continentSelection)
+                    .animation(.default, value: viewModel.searchTerm)
+                    .animation(.default, value: viewModel.continentSelection)
                 }
                 .padding(.trailing, 25)
                 .containerRelativeFrame(.horizontal) { size, _ in
@@ -40,18 +27,18 @@ struct AirportsContentView: View {
 
                 // map view
                 HStack {
-                    if let selectedAirport {
+                    if let selectedAirport = viewModel.selectedAirport {
                         AiportMapView(airport: selectedAirport, position: .camera(MapCamera.getDefaultMapCameraPosition(coordinate: selectedAirport.coordinate)))
                     } else {
-                        AiportMapView(airport: firstFilteredAirport, position: .camera(MapCamera.getDefaultMapCameraPosition(coordinate: firstFilteredAirport.coordinate)))
+                        AiportMapView(airport: viewModel.firstFilteredAirport, position: .camera(MapCamera.getDefaultMapCameraPosition(coordinate: viewModel.firstFilteredAirport.coordinate)))
                     }
                 }
             }
             .padding([.leading, .bottom, .trailing], 25)
-            .searchable(text: $searchTerm)
+            .searchable(text: $viewModel.searchTerm)
             .autocorrectionDisabled()
             .toolbar {
-                ToolBarItems(continentSelection: $continentSelection, filteredAirports: filteredAirports)
+                ToolBarItems(continentSelection: $viewModel.continentSelection, filteredAirports: viewModel.filteredAirports)
             }
             .navigationDestination(for: Airport.self) { airport in
                 AirportDetailsView(airport: airport)
