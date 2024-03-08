@@ -1,17 +1,21 @@
-//
-//  Extensions.swift
-//  Bookings-poc-visionos1
-//
-//  Created by Alin RADU on 06.03.2024.
-//
 import MapKit
 import SwiftUI
 
 extension MapCamera {
-    static func getDefaultMapCameraPosition(coordinate: CLLocationCoordinate2D) -> MapCamera {
-        return MapCamera(centerCoordinate: coordinate,
-                         distance: 1000,
-                         heading: 250,
-                         pitch: 60)
+    enum CameraPosition {
+        case standard
+        var id: CameraPosition {
+            self
+        }
+    }
+
+    static func getMapCameraPosition(coordinate: CLLocationCoordinate2D, cameraPosition: CameraPosition) -> MapCamera {
+        switch cameraPosition {
+        case .standard:
+            return MapCamera(centerCoordinate: coordinate,
+                             distance: 1000,
+                             heading: 250,
+                             pitch: 60)
+        }
     }
 }

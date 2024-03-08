@@ -1,10 +1,3 @@
-//
-//  MapView.swift
-//  Bookings-poc-visionos1
-//
-//  Created by Alin RADU on 17.02.2024.
-//
-
 import MapKit
 import SwiftUI
 
@@ -66,7 +59,7 @@ struct AiportMapView: View {
         .clipShape(.rect(cornerRadius: 30))
         .onChange(of: airport) {
             print("---> AiportMapView | onChange")
-            position = .camera(MapCamera.getDefaultMapCameraPosition(coordinate: airport.coordinate))
+            position = .camera(MapCamera.getMapCameraPosition(coordinate: airport.coordinate, cameraPosition: .standard))
         }
         .onChange(of: selectedTag) {
             print("test ------------>")
@@ -77,5 +70,5 @@ struct AiportMapView: View {
 #Preview(windowStyle: .automatic) {
     let airport = Airports().allAirports[1]
 
-    AiportMapView(airport: airport, position: .camera(MapCamera.getDefaultMapCameraPosition(coordinate: airport.coordinate)))
+    AiportMapView(airport: airport, position: .camera(MapCamera.getMapCameraPosition(coordinate: airport.coordinate, cameraPosition: .standard)))
 }

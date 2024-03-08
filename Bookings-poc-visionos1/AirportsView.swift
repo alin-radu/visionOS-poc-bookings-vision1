@@ -3,7 +3,7 @@ import RealityKit
 import RealityKitContent
 import SwiftUI
 
-struct AirportsContentView: View {
+struct AirportsView: View {
     @State private var viewModel = ViewModel()
 
     var body: some View {
@@ -28,9 +28,11 @@ struct AirportsContentView: View {
                 // map view
                 HStack {
                     if let selectedAirport = viewModel.selectedAirport {
-                        AiportMapView(airport: selectedAirport, position: .camera(MapCamera.getDefaultMapCameraPosition(coordinate: selectedAirport.coordinate)))
+                        AiportMapView(airport: selectedAirport,
+                                      position: .camera(.getMapCameraPosition(coordinate: selectedAirport.coordinate, cameraPosition: .standard)))
                     } else {
-                        AiportMapView(airport: viewModel.firstFilteredAirport, position: .camera(MapCamera.getDefaultMapCameraPosition(coordinate: viewModel.firstFilteredAirport.coordinate)))
+                        AiportMapView(airport: viewModel.firstFilteredAirport,
+                                      position: .camera(.getMapCameraPosition(coordinate: viewModel.firstFilteredAirport.coordinate, cameraPosition: .standard)))
                     }
                 }
             }
@@ -51,7 +53,7 @@ struct AirportsContentView: View {
 }
 
 #Preview(windowStyle: .automatic) {
-    AirportsContentView()
+    AirportsView()
 }
 
 // components

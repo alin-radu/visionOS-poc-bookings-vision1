@@ -1,18 +1,32 @@
-//
-//  Airports.swift
-//  Bookings-poc-visionos1
-//
-//  Created by Alin RADU on 07.03.2024.
-//
+import Foundation
 
-import SwiftUI
+class Airports {
+    var allAirports: [Airport]
+    var displayedAirports: [Airport]
 
-struct Airports: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    init() {
+        let airports: [Airport] = Bundle.main.decode("airports-SML.json")
+        allAirports = airports
+        displayedAirports = airports
     }
-}
 
-#Preview {
-    Airports()
+    func filter(by continent: Continent) {
+        if continent == .all {
+            displayedAirports = allAirports
+        } else {
+            displayedAirports = allAirports.filter { airport in
+                airport.continent == continent.rawValue
+            }
+        }
+    }
+
+    func search(for searchTerm: String) -> [Airport] {
+        if searchTerm.isEmpty {
+            return displayedAirports
+        } else {
+            return displayedAirports.filter { airport in
+                airport.name.lowercased().hasPrefix(searchTerm.lowercased()) || airport.municipality.lowercased().hasPrefix(searchTerm.lowercased())
+            }
+        }
+    }
 }

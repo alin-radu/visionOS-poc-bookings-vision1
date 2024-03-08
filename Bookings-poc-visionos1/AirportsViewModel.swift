@@ -1,13 +1,6 @@
-//
-//  AiportsContentView-ViewModel.swift
-//  Bookings-poc-visionos1
-//
-//  Created by Alin RADU on 07.03.2024.
-//
-
 import SwiftUI
 
-extension AirportsContentView {
+extension AirportsView {
     @Observable
     class ViewModel {
         let airports: Airports = Airports()

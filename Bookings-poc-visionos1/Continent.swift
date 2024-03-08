@@ -50,7 +50,7 @@ enum Continent: String, CaseIterable, Decodable, Identifiable {
         case europe.rawValue:
             return europe.name
         case north_america.rawValue:
-            return north_america.rawValue
+            return north_america.name
         case oceania.rawValue:
             return oceania.name
         case south_america.rawValue:
