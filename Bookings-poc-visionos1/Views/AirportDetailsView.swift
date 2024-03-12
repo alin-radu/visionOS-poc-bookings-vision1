@@ -39,7 +39,8 @@ struct AirportDetailsView: View {
             }
 
             AiportMapView(airport: airport,
-                          position: .camera(.getMapCameraPosition(coordinate: airport.coordinate, cameraPosition: .standard)))
+                          position: MapCameraPosition.camera(
+                            MapCamera.getMapCameraPosition(coordinate: airport.coordinate, cameraPosition: .standard)))
         }
         .padding([.leading, .bottom, .trailing], 25)
     }
