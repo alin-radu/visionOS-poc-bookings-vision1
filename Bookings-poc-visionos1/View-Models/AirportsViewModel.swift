@@ -17,5 +17,11 @@ extension AirportsView {
         var firstFilteredAirport: Airport {
             return filteredAirports[0]
         }
+
+        func getAirportById(airportId: Airport.ID?) -> Airport {
+            filteredAirports.filter { airport in
+                airport.id == airportId
+            }[0]
+        }
     }
 }

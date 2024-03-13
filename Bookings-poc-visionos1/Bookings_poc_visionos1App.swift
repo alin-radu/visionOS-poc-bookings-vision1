@@ -9,5 +9,10 @@ struct Bookings_poc_visionos1App: App {
         WindowGroup(id: SceneType.mainWindow.rawValue) {
             AirportsView(viewModel: $viewModel)
         }
+
+        WindowGroup("Aiport Details in New Window", for: Airport.ID.self) { $airportId in
+            AirportDetailsWindow(viewModel: viewModel, airportId: $airportId)
+        }
+        .commandsRemoved()
     }
 }

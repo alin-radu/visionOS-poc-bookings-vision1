@@ -16,7 +16,8 @@
 		182CAE2F2B7FA559003032E8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 182CAE2E2B7FA559003032E8 /* Preview Assets.xcassets */; };
 		182CAE372B7FA5AF003032E8 /* Bundle-Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182CAE362B7FA5AF003032E8 /* Bundle-Decodable.swift */; };
 		182CAE392B7FA5F6003032E8 /* Airport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 182CAE382B7FA5F6003032E8 /* Airport.swift */; };
-		184754972B8382400032C1C4 /* AirportDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184754962B8382400032C1C4 /* AirportDetailsView.swift */; };
+		184754972B8382400032C1C4 /* AirportDetailsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184754962B8382400032C1C4 /* AirportDetailsContentView.swift */; };
+		18C3B66F2BA1E2CB00F4901A /* AirportDetailsWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C3B66E2BA1E2CB00F4901A /* AirportDetailsWindow.swift */; };
 		18D58D212B811F3D00CC4425 /* SceneType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D58D202B811F3D00CC4425 /* SceneType.swift */; };
 		18D58D252B811FF400CC4425 /*  AirportMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D58D242B811FF400CC4425 /*  AirportMapView.swift */; };
 		18D7C17E2B98A74E00C75C07 /* MapCameraExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D7C17D2B98A74E00C75C07 /* MapCameraExtension.swift */; };
@@ -36,7 +37,8 @@
 		182CAE302B7FA559003032E8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		182CAE362B7FA5AF003032E8 /* Bundle-Decodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle-Decodable.swift"; sourceTree = "<group>"; };
 		182CAE382B7FA5F6003032E8 /* Airport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Airport.swift; sourceTree = "<group>"; };
-		184754962B8382400032C1C4 /* AirportDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportDetailsView.swift; sourceTree = "<group>"; };
+		184754962B8382400032C1C4 /* AirportDetailsContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportDetailsContentView.swift; sourceTree = "<group>"; };
+		18C3B66E2BA1E2CB00F4901A /* AirportDetailsWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirportDetailsWindow.swift; sourceTree = "<group>"; };
 		18D58D202B811F3D00CC4425 /* SceneType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneType.swift; sourceTree = "<group>"; };
 		18D58D242B811FF400CC4425 /*  AirportMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = " AirportMapView.swift"; sourceTree = "<group>"; };
 		18D7C17D2B98A74E00C75C07 /* MapCameraExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCameraExtension.swift; sourceTree = "<group>"; };
@@ -111,7 +113,8 @@
 			isa = PBXGroup;
 			children = (
 				182CAE292B7FA558003032E8 /* AirportsView.swift */,
-				184754962B8382400032C1C4 /* AirportDetailsView.swift */,
+				184754962B8382400032C1C4 /* AirportDetailsContentView.swift */,
+				18C3B66E2BA1E2CB00F4901A /* AirportDetailsWindow.swift */,
 				18D58D242B811FF400CC4425 /*  AirportMapView.swift */,
 			);
 			path = Views;
@@ -248,10 +251,11 @@
 				180596542B8093A900DEB291 /* Continent.swift in Sources */,
 				18D7C17E2B98A74E00C75C07 /* MapCameraExtension.swift in Sources */,
 				18E5D5732B99B75F0022AD04 /* AirportsViewModel.swift in Sources */,
-				184754972B8382400032C1C4 /* AirportDetailsView.swift in Sources */,
+				184754972B8382400032C1C4 /* AirportDetailsContentView.swift in Sources */,
 				18E5D5712B99B4640022AD04 /* Airports.swift in Sources */,
 				182CAE282B7FA558003032E8 /* Bookings_poc_visionos1App.swift in Sources */,
 				182CAE372B7FA5AF003032E8 /* Bundle-Decodable.swift in Sources */,
+				18C3B66F2BA1E2CB00F4901A /* AirportDetailsWindow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,7 +1,7 @@
 import MapKit
 import SwiftUI
 
-struct AirportDetailsView: View {
+struct AirportDetailsContentView: View {
     let airport: Airport
 
     init(airport: Airport) {
@@ -40,7 +40,7 @@ struct AirportDetailsView: View {
 
             AiportMapView(airport: airport,
                           position: MapCameraPosition.camera(
-                            MapCamera.getMapCameraPosition(coordinate: airport.coordinate, cameraPosition: .standard)))
+                              MapCamera.getMapCameraPosition(coordinate: airport.coordinate, cameraPosition: .standard)))
         }
         .padding([.leading, .bottom, .trailing], 25)
     }
@@ -49,7 +49,7 @@ struct AirportDetailsView: View {
 #Preview(windowStyle: .automatic) {
     let airports: [Airport] = Bundle.main.decode("airports-SML.json")
 
-    AirportDetailsView(airport: airports[0])
+    AirportDetailsContentView(airport: airports[0])
 }
 
 struct DetailItem: View {

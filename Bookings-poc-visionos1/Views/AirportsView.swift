@@ -3,6 +3,8 @@ import RealityKit
 import RealityKitContent
 import SwiftUI
 
+// MARK: View
+
 struct AirportsView: View {
     @Environment(\.openWindow) private var openWindow
 
@@ -11,35 +13,9 @@ struct AirportsView: View {
     var body: some View {
         NavigationStack {
             HStack {
-                // airports list
-                ScrollView {
-                    Divider()
-                    LazyVStack(alignment: .leading) {
-                        ForEach(viewModel.filteredAirports) { airport in
-                            ListLabel(airport: airport,
-                                      selectedAirport: $viewModel.selectedAirport,
-                                      openWindow: openWindow
-                            )
-                        }
-                    }
-                    .animation(.default, value: viewModel.searchTerm)
-                    .animation(.default, value: viewModel.continentSelection)
-                }
-                .padding(.trailing, 25)
-                .containerRelativeFrame(.horizontal) { size, _ in
-                    size * 0.5
-                }
+                airportsList
 
-                // map view
-                HStack {
-                    if let selectedAirport = viewModel.selectedAirport {
-                        AiportMapView(airport: selectedAirport,
-                                      position: .camera(.getMapCameraPosition(coordinate: selectedAirport.coordinate, cameraPosition: .standard)))
-                    } else {
-                        AiportMapView(airport: viewModel.firstFilteredAirport,
-                                      position: .camera(.getMapCameraPosition(coordinate: viewModel.firstFilteredAirport.coordinate, cameraPosition: .standard)))
-                    }
-                }
+                airportMap
             }
             .padding([.leading, .bottom, .trailing], 25)
             .searchable(text: $viewModel.searchTerm)
@@ -48,7 +24,7 @@ struct AirportsView: View {
                 ToolBarItems(continentSelection: $viewModel.continentSelection, filteredAirports: viewModel.filteredAirports)
             }
             .navigationDestination(for: Airport.self) { airport in
-                AirportDetailsView(airport: airport)
+                AirportDetailsContentView(airport: airport)
             }
         }
         .onAppear {
@@ -57,13 +33,51 @@ struct AirportsView: View {
     }
 }
 
+// MARK: Preview
+
 #Preview(windowStyle: .automatic) {
     let viewModel = AirportsView.ViewModel()
 
     AirportsView(viewModel: .constant(viewModel))
 }
 
-// components
+// MARK: View Extensions
+
+extension AirportsView {
+    private var airportsList: some View {
+        ScrollView {
+            Divider()
+            LazyVStack(alignment: .leading) {
+                ForEach(viewModel.filteredAirports) { airport in
+                    ListLabel(airport: airport,
+                              selectedAirport: $viewModel.selectedAirport,
+                              openWindow: openWindow
+                    )
+                }
+            }
+            .animation(.default, value: viewModel.searchTerm)
+            .animation(.default, value: viewModel.continentSelection)
+        }
+        .padding(.trailing, 25)
+        .containerRelativeFrame(.horizontal) { size, _ in
+            size * 0.5
+        }
+    }
+
+    private var airportMap: some View {
+        HStack {
+            if let selectedAirport = viewModel.selectedAirport {
+                AiportMapView(airport: selectedAirport,
+                              position: .camera(.getMapCameraPosition(coordinate: selectedAirport.coordinate, cameraPosition: .standard)))
+            } else {
+                AiportMapView(airport: viewModel.firstFilteredAirport,
+                              position: .camera(.getMapCameraPosition(coordinate: viewModel.firstFilteredAirport.coordinate, cameraPosition: .standard)))
+            }
+        }
+    }
+}
+
+// MARK: View Components
 
 struct ToolBarItems: ToolbarContent {
     @Binding var continentSelection: Continent
