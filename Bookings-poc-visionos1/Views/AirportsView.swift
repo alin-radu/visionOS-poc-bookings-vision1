@@ -4,7 +4,9 @@ import RealityKitContent
 import SwiftUI
 
 struct AirportsView: View {
-    @State private var viewModel = ViewModel()
+    @Environment(\.openWindow) private var openWindow
+
+    @Binding var viewModel: ViewModel
 
     var body: some View {
         NavigationStack {
@@ -14,7 +16,10 @@ struct AirportsView: View {
                     Divider()
                     LazyVStack(alignment: .leading) {
                         ForEach(viewModel.filteredAirports) { airport in
-                            ListLabel(airport: airport, selectedAirport: $viewModel.selectedAirport)
+                            ListLabel(airport: airport,
+                                      selectedAirport: $viewModel.selectedAirport,
+                                      openWindow: openWindow
+                            )
                         }
                     }
                     .animation(.default, value: viewModel.searchTerm)
@@ -53,7 +58,9 @@ struct AirportsView: View {
 }
 
 #Preview(windowStyle: .automatic) {
-    AirportsView()
+    let viewModel = AirportsView.ViewModel()
+
+    AirportsView(viewModel: .constant(viewModel))
 }
 
 // components
@@ -93,6 +100,8 @@ struct ListLabel: View {
 
     @Binding var selectedAirport: Airport?
 
+    let openWindow: OpenWindowAction
+
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
@@ -103,22 +112,35 @@ struct ListLabel: View {
                     .font(.title3)
                     .foregroundStyle(.secondary)
             }
+            .padding(.leading, 20)
+            .padding(.vertical, 10)
+            .frame(maxWidth: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
+            .background(.ultraThinMaterial)
+            .clipShape(.rect(cornerRadius: 10))
+            .onTapGesture {
+                print("airport: \(airport.name)")
+                selectedAirport = airport
+            }
 
             Spacer()
 
             NavigationLink(value: airport) {
                 Image(systemName: "info")
                     .imageScale(.medium)
+                    .help("Airport Details in New Section")
             }
 
             Button {
-                print(airport.name)
-                selectedAirport = airport
+                print("open in new window: \(airport.name)")
+                openWindow(value: airport.id)
             } label: {
-                Image(systemName: "map")
+                Image(systemName: "rectangle.portrait.on.rectangle.portrait")
                     .imageScale(.medium)
+                    .rotationEffect(.degrees(-90))
+                    .help("Airport Details in New Window")
             }
         }
+
         Divider()
     }
 }
